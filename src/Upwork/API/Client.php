@@ -75,11 +75,11 @@ class Client
      * @access  public
      * @return  array
      */
-    public function getRequestToken()
+    public function getRequestToken($params)
     {
         ApiDebug::p('getRequestToken');
 
-        return $this->_server->setupRequestToken();
+        return $this->_server->setupRequestToken($params);
     }
 
     /**

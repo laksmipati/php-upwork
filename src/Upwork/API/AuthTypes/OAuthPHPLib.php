@@ -69,7 +69,7 @@ final class OAuthPHPLib extends AbstractOAuth implements ApiClient
      * @access  public
      * @return  array
      */
-    public function setupRequestToken()
+    public function setupRequestToken($params = array())
     {
         ApiDebug::p('query request token from server');
 
@@ -77,7 +77,7 @@ final class OAuthPHPLib extends AbstractOAuth implements ApiClient
         $requestTokenInfo = \OAuthRequester::requestRequestToken(
             self::$_apiKey,
             0,
-            array(),
+            $params,
             'POST',
             array(),
             self::_getCurlOptions()
