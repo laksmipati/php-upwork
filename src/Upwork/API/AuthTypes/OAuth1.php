@@ -62,13 +62,16 @@ final class OAuth1 extends AbstractOAuth implements ApiClient
      * @access  public
      * @return  array
      */
-    public function setupRequestToken()
+    public function setupRequestToken($params = array())
     {
         ApiDebug::p('query request token from server');
 
         $oauth = $this->_getOAuthInstance(OAUTH_AUTH_TYPE_FORM);
+        $callback_url = isset($params['oauth_callback']) ? $params['oauth_callback'] : '';
+
         $requestTokenInfo = $oauth->getRequestToken(
-            ApiUtils::getFullUrl(self::URL_RTOKEN, 'api')
+            ApiUtils::getFullUrl(self::URL_RTOKEN, 'api'),
+            $callback_url
         );
         ApiDebug::p('got request token info', $requestTokenInfo);
 
@@ -81,9 +84,9 @@ final class OAuth1 extends AbstractOAuth implements ApiClient
     /**
      * Get access token
      *
-     * @param	string $verifier OAuth verifier, got after authorization
-     * @access	protected
-     * @return	array
+     * @param   string $verifier OAuth verifier, got after authorization
+     * @access  protected
+     * @return  array
      */
     protected function _setupAccessToken($verifier)
     {
