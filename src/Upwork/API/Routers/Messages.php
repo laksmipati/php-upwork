@@ -52,7 +52,7 @@ final class Messages extends ApiClient
     {
         ApiDebug::p(__FUNCTION__);
 
-        $response = $this->_client->get('/messages/v3/' . $company . '/rooms', ['returnUsers' => 'true', 'limit' => 3]);
+        $response = $this->_client->get('/messages/v3/' . $company . '/rooms', ['returnUsers' => 'true']);
         ApiDebug::p('found rooms', $response);
 
         return $response;
