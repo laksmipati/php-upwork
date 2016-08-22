@@ -89,7 +89,7 @@ final class Messages extends ApiClient
     {
         ApiDebug::p(__FUNCTION__);
 
-        $response = $this->_client->get('/messages/v3/rooms/' . $username . '/applications/' . $applicationId);
+        $response = $this->_client->get('/messages/v3/' . $username . '/rooms/applications/' . $applicationId);
         ApiDebug::p('found thread', $response);
 
         return $response;
