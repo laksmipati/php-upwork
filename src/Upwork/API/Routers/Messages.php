@@ -97,39 +97,51 @@ final class Messages extends ApiClient
 
 
     /**
-     * Get a specific thread by context (last message content)
+     * Create a new room
      *
      * @param   string $username Username
-     * @param   string $jobKey Job key
-     * @param   integer $applicationId Application ID
-     * @param   string $context (Optional) Context
+     * @param   string $roomName Room name
+     * @param   array $userId User ID
      * @access  public
      * @return  object
      */
-    public function getThreadByContextLastPosts($username, $jobKey, $applicationId, $context = 'Interviews')
+    public function createNewRoom($username, $roomName, $userId)
     {
         ApiDebug::p(__FUNCTION__);
 
-        $response = $this->_client->get('/mc/v1/contexts/' . $username . '/' . $context . ':' . $jobKey . ':' . $applicationId . '/last_posts');
+        $user = json_encode(['userId' => $userId]);
+
+        $params = [
+            'roomName' => $roomName,
+            'roomType' => 'ONE_ON_ONE',
+            'users' => [$user]
+        ];
+
+        $response = $this->_client->post('/messages/v3/' . $username . '/rooms', ['room' => json_encode($params)]);
         ApiDebug::p('found thread', $response);
 
         return $response;
     }
 
     /**
-     * Update threads based on user actions
+     * Send a message to a room
      *
      * @param   string $username Username
-     * @param   integer $threadId Thread ID
-     * @param   array $params Parameters
+     * @param   integer $roomId Room ID
      * @access  public
      * @return  object
      */
-    public function markThread($username, $threadId, $params)
+    public function sendMessageToRoom($username, $roomId, $message)
     {
         ApiDebug::p(__FUNCTION__);
 
-        $response = $this->_client->put('/mc/v1/threads/' . $username . '/' . $threadId, $params);
+        $params = [
+            'story' => json_encode([
+                'message' => $message
+            ])
+        ];
+
+        $response = $this->_client->post('/messages/v3/' . $username . '/rooms/' . $roomId . '/stories', $params);
         ApiDebug::p('found response', $response);
 
         return $response;
