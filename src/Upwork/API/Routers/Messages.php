@@ -109,7 +109,7 @@ final class Messages extends ApiClient
     {
         ApiDebug::p(__FUNCTION__);
 
-        $user = new stdClass();
+        $user = new \stdClass();
         $user->userId = $userId;
 
         $params = [
