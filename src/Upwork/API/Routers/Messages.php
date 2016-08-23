@@ -115,7 +115,7 @@ final class Messages extends ApiClient
         $params = [
             'roomName' => $roomName,
             'roomType' => 'ONE_ON_ONE',
-            'users' => [json_encode($user)]
+            'users' => [$user]
         ];
 
         $response = $this->_client->post('/messages/v3/' . $username . '/rooms', ['room' => json_encode($params)]);
