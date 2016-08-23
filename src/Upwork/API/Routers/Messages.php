@@ -109,12 +109,13 @@ final class Messages extends ApiClient
     {
         ApiDebug::p(__FUNCTION__);
 
-        $user = json_encode(['userId' => $userId]);
+        $user = new stdClass();
+        $user->userId = $userId;
 
         $params = [
             'roomName' => $roomName,
             'roomType' => 'ONE_ON_ONE',
-            'users' => [$user]
+            'users' => [json_encode($user)]
         ];
 
         $response = $this->_client->post('/messages/v3/' . $username . '/rooms', ['room' => json_encode($params)]);
