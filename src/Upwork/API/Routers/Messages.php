@@ -105,12 +105,9 @@ final class Messages extends ApiClient
      * @access  public
      * @return  object
      */
-    public function createNewRoom($username, $roomName, $userId)
+    public function createNewRoom($username, $roomName, $user)
     {
         ApiDebug::p(__FUNCTION__);
-
-        $user = new \stdClass();
-        $user->userId = $userId;
 
         $params = [
             'roomName' => $roomName,
