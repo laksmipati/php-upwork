@@ -134,9 +134,7 @@ final class Messages extends ApiClient
         ApiDebug::p(__FUNCTION__);
 
         $params = [
-            'story' => json_encode([
-                'message' => $message
-            ])
+            'story' => json_encode($message)
         ];
 
         $response = $this->_client->post('/messages/v3/' . $username . '/rooms/' . $roomId . '/stories', $params);
